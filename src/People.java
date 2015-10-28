@@ -1,3 +1,4 @@
+import com.sun.tools.internal.ws.processor.model.Model;
 import spark.ModelAndView;
 import spark.Session;
 import spark.Spark;
@@ -51,6 +52,25 @@ public class People {
                     }
                     return new ModelAndView(new HashMap(), "people.html");
                 },
+                new MustacheTemplateEngine()
+        );
+
+        Spark.get(
+                "/person",
+                ((request, response) -> {
+                    HashMap m = new HashMap();
+                    String idP = request.queryParams("id");
+
+                    try {
+                        int idNum = Integer.valueOf(idP) - 1;
+                        Person person = people.get(idNum);
+                        m.put("person", person);
+                        return new ModelAndView(m, "person.html");
+                    }
+                    catch (Exception e){
+
+                    }return new ModelAndView(new HashMap(), "person.html");
+                }),
                 new MustacheTemplateEngine()
         );
     }
