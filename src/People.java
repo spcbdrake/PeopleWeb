@@ -1,3 +1,6 @@
+import spark.Session;
+import spark.Spark;
+
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -21,7 +24,12 @@ public class People {
             people.add(person);
         }
 
-        // write Spark route here
+        Spark.get(
+                "/",
+                ((request, response) -> {
+                    Session session = request.session();
+                    String person =  session.attribute("person");
+        );
     }
 
     static String readFile(String fileName) {
