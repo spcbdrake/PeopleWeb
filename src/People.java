@@ -4,6 +4,7 @@ import spark.Spark;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by zach on 10/19/15.
@@ -27,8 +28,9 @@ public class People {
         Spark.get(
                 "/",
                 ((request, response) -> {
-                    Session session = request.session();
-                    String person =  session.attribute("person");
+
+
+                })
         );
     }
 
