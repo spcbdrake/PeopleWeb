@@ -38,12 +38,18 @@ public class People {
                     else{
                         counter = Integer.valueOf(offset);
                     }
+                    if(!(counter<people.size())) {
+                        Spark.halt(403);
+                    }
+                    else {
 
-                    ArrayList<Person> tempList = new ArrayList<Person>(people.subList(counter, counter +20));
-                    HashMap m = new HashMap();
-                    m.put("people", tempList);
-                    m.put("new_counter", counter+20);
-                    return new ModelAndView(m, "people.html");
+                        ArrayList<Person> tempList = new ArrayList<Person>(people.subList(counter, counter + 20));
+                        HashMap m = new HashMap();
+                        m.put("people", tempList);
+                        m.put("new_counter", counter + 20);
+                        return new ModelAndView(m, "people.html");
+                    }
+                    return new ModelAndView(new HashMap(), "people.html");
                 },
                 new MustacheTemplateEngine()
         );
