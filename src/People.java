@@ -1,5 +1,7 @@
+import spark.ModelAndView;
 import spark.Session;
 import spark.Spark;
+import spark.template.mustache.MustacheTemplateEngine;
 
 import java.io.File;
 import java.io.FileReader;
@@ -27,10 +29,23 @@ public class People {
 
         Spark.get(
                 "/",
-                ((request, response) -> {
+                (request, response) -> {
+                    String offset = request.queryParams("offset");
+                    int counter;
+                    if (offset == null){
+                        counter = 0;
+                    }
+                    else{
+                        counter = Integer.valueOf(offset);
+                    }
 
-
-                })
+                    ArrayList<Person> tempList = new ArrayList<Person>(people.subList(counter, counter +20));
+                    HashMap m = new HashMap();
+                    m.put("people", tempList);
+                    m.put("new_counter", counter+20);
+                    return new ModelAndView(m, "people.html");
+                },
+                new MustacheTemplateEngine()
         );
     }
 
